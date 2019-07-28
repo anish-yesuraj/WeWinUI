@@ -1,0 +1,107 @@
+<div class="container" style="height:100%;">
+    <div class="row" style="height:100%;">
+        <div class="col-12" >
+            <h5><strong> {{selAnswerChoice.action}} </strong> - Answer Choice : <strong> {{selAnswerChoice.id}} </strong> </h5>
+        </div>
+        
+        <div class="col-12" [formGroup]="answerChoiceForm">
+            <div class="row" *ngIf="action != 'DELETE'; else confirmDeleteMsg"> <!-- Answer Choice Grid Start -->
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2 align-self-center">
+                            <mat-checkbox formControlName="result" labelPosition="before" color="primary">
+                                Is Correct ?
+                            </mat-checkbox>
+                        </div>
+                        <div class="col-10">
+                            <mat-form-field class="example-full-width">
+                                <input matInput required formControlName="text" placeholder="Answer/Choice Text">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="tip" placeholder="Answer tip/explanation..(To be displayed during review)">
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="imageTip" placeholder="Image tip (if applicable)">
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col example-full-width">
+                                        <div class="row justify-content-between example-full-width"> <!-- TODO Align left and right -->
+                                            <div class="col-6" style="text-align: left;">
+                                                <button type="button" class="btn btn-success btn-sm" (click)="doAction()">
+                                                    <mat-icon>save</mat-icon>
+                                                    <sup>{{action}}</sup>  
+                                                </button>
+                                            </div>
+                                            <div class="col-6" style="text-align: right;">
+                                                <button type="button" class="btn btn-secondary btn-sm" (click)="closeDialog()">
+                                                    <mat-icon>cancel</mat-icon>
+                                                    <sup>CANCEL</sup>  
+                                                </button>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col">
+                                        <input hidden matInput formControlName="imageName">
+                                        <input hidden matInput formControlName="imageFile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6" (paste)="onPaste($event)">
+                            <div class="row">
+                                <div class="col align-self-end">
+                                    <div class="text-center"> 
+                                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="_choiceImageFile.click()">Upload Answer/Choice Image</button>        
+                                        <input #_choiceImageFile hidden type="file" accept="image/*" class="custom-file-input" name="choiceImageFile" (change)="handleFileInput($event.target.files)">
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col align-self-center">
+                                    <div class="text-center">
+                                        <img #_choiceImagePreview class="img-thumbnail" style="max-width: 380px; max-height: 150px;" name="imageSrc" [src]="imageSrc ? imageSrc : '../../../assets/img/WeWin-192x192.png'">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- END of Answer Choice Grid -->
+
+            <ng-template #confirmDeleteMsg> <!-- Delete Warning Grid Start -->
+                <div class="row justify-content-start">
+                    <div class="col">
+                        <p>
+                            Are you sure to <b>Delete</b> this Choice ? 
+                        </p>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-1">
+                        <mat-icon *ngIf="selAnswerChoice.result">check_circle</mat-icon>
+                        <mat-icon *ngIf="!selAnswerChoice.result">highlight_off</mat-icon>
+                    </div>
+                    <div class="col-11">
+                        <p>
+                            {{selAnswerChoice.text}}
+                        </p>
+                    </div>
+                </div>
+            </ng-template> <!-- END of Delete Warning Grid -->
+        </div>
+        
+        <!-- <div class="w-100"></div>
+
+        <div class="col align-self-end">
+
+        </div> -->
+    </div>
+</div>

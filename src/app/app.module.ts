@@ -1,8 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AYLayoutModule } from './ay-layout/ay-layout.module';
+import { AYCustomModule } from './app.module.ay-custom';
+import { AYDataService } from './ay-service/ay-data.service';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -10,9 +17,19 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot([]),
+    AppRoutingModule,
+    FlexLayoutModule,
+    AYLayoutModule,
+    AYCustomModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+      AYDataService,
+      {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
