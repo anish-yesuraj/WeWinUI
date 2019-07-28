@@ -94,6 +94,24 @@
                             {{selAnswerChoice.text}}
                         </p>
                     </div>
+                    <div class="w-100"></div>
+                    <div class="col-12 example-full-width">
+                        <div class="row justify-content-between example-full-width"> <!-- TODO Align left and right -->
+                            <div class="col-6" style="text-align: left;">
+                                <button type="button" class="btn btn-success btn-sm" (click)="doAction()">
+                                    <mat-icon>save</mat-icon>
+                                    <sup>{{action}}</sup>  
+                                </button>
+                            </div>
+                            <div class="col-6" style="text-align: right;">
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="closeDialog()">
+                                    <mat-icon>cancel</mat-icon>
+                                    <sup>CANCEL</sup>  
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </ng-template> <!-- END of Delete Warning Grid -->
         </div>

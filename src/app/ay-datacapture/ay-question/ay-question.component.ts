@@ -138,7 +138,7 @@ export class AYQuestionComponent implements OnInit {
     const matDialogConfig = new MatDialogConfig();
     if ('DELETE' == action) {
       matDialogConfig.width = '450px';
-      matDialogConfig.height = '200px';
+      matDialogConfig.height = '250px';
     } else {
       matDialogConfig.width = '850px';
       matDialogConfig.height = '330px';
