@@ -13,8 +13,8 @@ export interface IQuestion {
 	tip : string;
 	active : boolean; //TODO Activate (Slide toggle) by default for new Question
 	imageSrc: string; //TODO Load a default image background
-	imageFile: any;
-	imageName: string;
+	//imageFile: any;
+	//imageName: string;
     imageTip : string;
     answerExplanation : string;
     sourceId : string;
@@ -29,8 +29,8 @@ export interface IAnswerChoice {
 	result: boolean;  //TODO Set default isCorrectAnswer as false
 	active: boolean;  //TODO Default active true
 	imageSrc: string; //TODO Load a default image background
-	imageFile: any;
-	imageName: string;
+	//imageFile: any;
+	//imageName: string;
 	imageTip: string;
 }
 

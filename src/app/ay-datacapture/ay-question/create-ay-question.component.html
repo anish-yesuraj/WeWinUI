@@ -1,0 +1,245 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ questionId ? 'Question # '+questionId : 'New Question'}}</mat-card-title>
+    </mat-card-header>
+    
+    <mat-divider></mat-divider>
+    
+    <mat-card-content> 
+        <form [formGroup]="questionForm" class="example-form">
+        <div class="row justify-content-around">
+            <div class="col-2 align-self-center">
+                <!-- TODO Align the toggle to the left/right of card-title and style the label -->
+                <mat-slide-toggle formControlName="active" labelPosition="before" color="primary" style="font-style: normal">
+                    Activate
+                </mat-slide-toggle>
+            </div>
+            <div class="col-2">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Grade</mat-label> <!-- TODO Align the dropdown -->
+                    <mat-select required formControlName="grade">
+                        <mat-option *ngFor="let grade of gradeMaster" [value]="grade.optionId">
+                            {{grade.optionName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngFor="let validation of qem.grade">
+                        <mat-error class="error-message" *ngIf="showErrorMsgIf('grade', validation.type)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+                
+                <!-- <ay-error [control]="grade"></ay-error> -->
+            </div>
+            <div class="col-3">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Subject</mat-label> <!-- TODO Align the dropdown -->
+                    <mat-select required formControlName="subject">
+                        <mat-option *ngFor="let subject of subjectMaster" [value]="subject.optionId">
+                            {{subject.optionName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngFor="let validation of qem.subject">
+                        <mat-error class="error-message" *ngIf="showErrorMsgIf('subject', validation.type)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-5">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Topic</mat-label>
+                    <mat-select formControlName="topic">
+                        <mat-option *ngFor="let topic of topicMaster" [value]="topic.optionId">
+                            {{topic.optionName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+            <div class="w-100"></div>
+            
+            <div class="col-4">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Difficulty level</mat-label>
+                    <mat-select formControlName="level">
+                        <mat-option *ngFor="let diffLevel of levelMaster" [value]="diffLevel.optionId">
+                            {{diffLevel.optionName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field class="example-full-width"> 
+                    <mat-label>Exam Tag</mat-label> <!-- TODO Make this as Chips Autocomplete -->
+                    <mat-select formControlName="examTag">
+                        <mat-option *ngFor="let exam of examMaster" [value]="exam.optionId">
+                            {{exam.optionName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Source Id</mat-label>
+                    <mat-select required formControlName="sourceId">
+                        <mat-option *ngFor="let source of sourceMaster" [value]="source.optionId">
+                            {{source.optionName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngFor="let validation of qem.sourceId">
+                        <mat-error class="error-message" *ngIf="showErrorMsgIf('sourceId', validation.type)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="w-100"></div>
+            
+            <div class="col-12">
+                <mat-form-field class="example-full-width">
+                    <!-- FIXME TextArea is not resizing -->
+                    <textarea matInput required formControlName="text" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"
+                    placeholder="Question text..">
+                    </textarea>
+                    <mat-error *ngFor="let validation of qem.text">
+                        <mat-error class="error-message" *ngIf="showErrorMsgIf('text', validation.type)">{{validation.message}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        
+            <div class="w-100"></div>
+            
+            <div class="col-4">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                            <!-- FIXME TextArea is not resizing -->
+                            <textarea matInput formControlName="tip" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"
+                                placeholder="Question tip..(To be displayed along with Question)">
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-100"></div>
+                    
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                            <!-- FIXME TextArea is not resizing -->
+                            <textarea matInput formControlName="answerExplanation" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"
+                                placeholder="Answer tip/explanation..(To be displayed during review)">
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="w-100"></div>
+                    
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                            <!-- FIXME TextArea is not resizing -->
+                            <textarea matInput formControlName="imageTip" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"
+                                placeholder="Image tip/caption..">
+                            </textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8" (paste)="onPaste($event)">
+                <div class="row">
+                    <div class="col align-self-end">
+                        <div class="text-center"> 
+                            <input #_questionImageFile hidden type="file" accept="image/*" class="custom-file-input" name="questionImageFile" (change)="handleFileInput($event.target.files)">
+                            <button mat-icon-button class="color-ay-add" aria-label="Add Image" (click)="_questionImageFile.click()">
+                                <mat-icon>attach_file</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" aria-label="Clear Image" (click)="clearQuestionImage()">
+                                <mat-icon>remove_circle_outline</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col align-self-center" style="padding-top: 10px;">
+                        <div class="text-center">
+                            <!-- <img [ngClass]="{'img-thumbnail':imageSrc, 'img-thumbnail img-filter':!imageSrc}" style="max-width: 680px; max-height: 200px;" name="questionImage" #_questionImagePreview [src]="imageSrc ? imageSrc : '../../../assets/img/empty_image_background.png'"> -->
+                            <img class="img-thumbnail" style="max-width: 680px; max-height: 200px;" name="questionImage" #_questionImagePreview [src]="imageSrc?imageSrc:'../../../assets/img/dummy-bg-filtered.png'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center" style="padding-left: 10px; padding-right: 10px;"> <!-- Answer Choice List Start -->
+            <div class="col-12">
+                <div class="row justify-content-start">
+                    <div class="col-11 align-self-center">
+                        <h6>List of choices for the above Question</h6>
+                    </div>
+                    <div class="col-1 align-self-center">
+                        <button mat-icon-button class="color-ay-add"  (click)="openAnswerChoice('ADD',{})">
+                            <mat-icon>add_box</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <!-- <ng-template #addChoiceMsg>Add Answer/Choice to the list.</ng-template> -->
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <!-- <table mat-table *ngIf="answerChoicesTableData && answerChoices.length>0; else addChoiceMsg" [dataSource]="answerChoices" #answerChoicesTable class="example-full-width"> -->
+                        <table mat-table #answerChoicesTable [dataSource]="answerChoicesTableData" class="mat-elevation-z3" style="width: 100%;">
+                            <ng-container matColumnDef="clmAnswerResult">
+                                <th mat-header-cell *matHeaderCellDef> Result </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-icon class="color-ay-success" *ngIf="element.result">check_circle</mat-icon>
+                                    <mat-icon *ngIf="!element.result">highlight_off</mat-icon>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="clmAnswerText">
+                                <th mat-header-cell *matHeaderCellDef> Choice Text </th>
+                                <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="clmAnswerImagePreview">
+                                <th mat-header-cell *matHeaderCellDef> Choice Image </th>
+                                <td mat-cell *matCellDef="let element"> 
+                                    <img *ngIf="element.imageSrc" [src]="element.imageSrc" style="max-width: 200px; height: 76px;">
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="clmAction">
+                                <th mat-header-cell *matHeaderCellDef> Edit / Delete </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-icon-button class="color-ay-edit" aria-label="Edit Choice" (click)="openAnswerChoice('UPDATE',element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button class="color-ay-delete" aria-label="Delete Choice" (click)="openAnswerChoice('DELETE',element)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- END of Answer Choice List -->       
+
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <div class="d-flex justify-content-between">
+            <button *ngIf="!questionId" type="button" class="btn btn-success" (click) = "submitQuestion()">Submit Question</button>
+            <button *ngIf="questionId" type="button" class="btn btn-info" (click) = "updateQuestion(questionId)">Update Question</button>
+            
+            <button *ngIf="questionId" type="button" class="btn btn-warning" (click) = "reloadQuestion(questionId)">Reload</button>
+            <button *ngIf="!questionId" type="reset"  class="btn btn-secondary" (click) = "resetQuestion()">Reset</button>
+            
+            <button type="button" class="btn btn-danger" (click) = "exitQuestion()">Exit</button>
+        </div>
+    </mat-card-actions>
+
+</mat-card>
+
+
+
+<div *ngIf="deAction=='GET'" [formGroup]="searchQuestionForm">
+        <input required formControlName="questionID" placeholder="Question ID">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="getQuestionByID()">
+        GET QUESTION
+        </button>
+</div>

@@ -1,0 +1,1 @@
+export * from './ay-register.component';

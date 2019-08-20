@@ -1,35 +1,52 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router'
-import { FlexLayoutModule } from '@angular/flex-layout'
+import { NgModule } from '@angular/core';
+import { appRoutingModule } from './app.routing';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AYCustomModule } from './app.module.ay-custom';
+
+import { AYDataService } from './ay-service/ay-data.service';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AYLayoutModule } from './ay-layout/ay-layout.module';
-import { AYCustomModule } from './app.module.ay-custom';
-import { AYDataService } from './ay-service/ay-data.service';
+import { AYLoginComponent } from './ay-login';
+import { AYRegisterComponent } from './ay-register';
+import { AYHomeComponent } from './ay-home';
+import { AYAlertComponent } from './ay-error';
+import { AYCreateQuestionComponent } from "./ay-datacapture/ay-question/create-ay-question.component";
+import { AYPreviewQuestionComponent } from "./ay-datacapture/ay-question/preview-ay-question.component";
+import { AYAnswerChoiceDialog } from './ay-datacapture/ay-answer/ay-answer-choice-dialog.component';
+
+import { httpJwtInterceptorProviders, httpErrorInterceptorProviders } from './ay-helpers';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { AYNavService } from './ay-service';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AYHomeComponent,
+    AYLoginComponent,
+    AYRegisterComponent,
+    AYAlertComponent,
+    AYCreateQuestionComponent,
+    AYAnswerChoiceDialog,
+    AYPreviewQuestionComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([]),
-    AppRoutingModule,
-    FlexLayoutModule,
-    AYLayoutModule,
+    HttpClientModule,
+    appRoutingModule,
     AYCustomModule
   ],
+  entryComponents: [AYAnswerChoiceDialog],
   providers: [
+      httpJwtInterceptorProviders,
+      httpErrorInterceptorProviders,
       AYDataService,
-      {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+      AYNavService,
+      { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

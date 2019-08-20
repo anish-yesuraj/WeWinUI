@@ -1,0 +1,11 @@
+<!-- <div class="container">
+<div class="row">
+<div class="col align-self-center" > -->
+    <div *ngIf="message" [ngClass]="message.cssClass" style="text-align: center; max-width:initial;">
+        {{message.text}}
+    </div> 
+    <!-- <p>{{ (message | async)?.text }}</p>
+    <p>{{ message.cssClass }}</p> -->
+<!-- </div>
+</div>
+</div> -->

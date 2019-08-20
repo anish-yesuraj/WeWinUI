@@ -50,25 +50,27 @@
                                             </div>
                                         </div>
                                 </div>
-                                <div class="w-100"></div>
-                                <div class="col">
-                                        <input hidden matInput formControlName="imageName">
-                                        <input hidden matInput formControlName="imageFile">
-                                </div>
                             </div>
                         </div>
                         <div class="col-6" (paste)="onPaste($event)">
                             <div class="row">
                                 <div class="col align-self-end">
                                     <div class="text-center"> 
-                                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="_choiceImageFile.click()">Upload Answer/Choice Image</button>        
+                                        <!-- <button type="button" class="btn btn-outline-warning btn-sm" (click)="_choiceImageFile.click()">Upload Answer/Choice Image</button>         -->
                                         <input #_choiceImageFile hidden type="file" accept="image/*" class="custom-file-input" name="choiceImageFile" (change)="handleFileInput($event.target.files)">
+                                        <button mat-icon-button class="color-ay-add" aria-label="Add Image" (click)="_choiceImageFile.click()">
+                                            <mat-icon>attach_file</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="warn" aria-label="Clear Image" (click)="clearChoiceImage()">
+                                            <mat-icon>remove_circle_outline</mat-icon>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="w-100"></div>
                                 <div class="col align-self-center">
                                     <div class="text-center">
-                                        <img #_choiceImagePreview class="img-thumbnail" style="max-width: 380px; max-height: 150px;" name="imageSrc" [src]="imageSrc ? imageSrc : '../../../assets/img/WeWin-192x192.png'">
+                                        <!-- <img #_choiceImagePreview class="img-thumbnail" style="max-width: 380px; max-height: 150px;" name="choiceImage" [src]="imageSrc ? imageSrc : '../../../assets/img/empty_image_background.png'"> -->
+                                        <img class="img-thumbnail" style="max-width: 380px; max-height: 150px;" name="questionImage" #_choiceImagePreview [src]="imageSrc?imageSrc:'../../../assets/img/dummy-bg-filtered.png'">
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +88,7 @@
                     </div>
                     <div class="w-100"></div>
                     <div class="col-1">
-                        <mat-icon *ngIf="selAnswerChoice.result">check_circle</mat-icon>
+                        <mat-icon class="color-ay-success" *ngIf="selAnswerChoice.result">check_circle</mat-icon>
                         <mat-icon *ngIf="!selAnswerChoice.result">highlight_off</mat-icon>
                     </div>
                     <div class="col-11">

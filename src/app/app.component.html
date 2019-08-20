@@ -1,17 +1,67 @@
-<div class="container">
+<div
+    gdAreas.lt-sm="header | side | content | footer"
+    gdRows.lt-sm="auto auto auto auto"
+    gdGap="10px" 
 
-<!-- Topbar / Header -->
-<app-ay-head *ngIf="showHead"></app-ay-head>
-<!-- End of Topbar / Header -->
+    gdAreas.sm="header header | side content | footer footer" 
+    gdColumns.sm="200px auto"
+    gdRows.sm="auto auto auto"
+    gdGap.sm="10px"
+    
+    gdAreas.gt-sm="header header | side content | footer footer" 
+    gdColumns.gt-sm="250px auto"
+    gdRows.gt-sm="auto auto auto"
+    gdGap.gt-sm="10px"
 
-<!-- Begin Page Content / Body -->
-<router-outlet></router-outlet>
-<!-- End Page Content / Body -->
+    style="padding:10px;"
+    >
+    <div gdArea="header">
+            <mat-toolbar *ngIf="navElements?.topNavStatus" class="ay-header">
+                <mat-toolbar-row>
+                    <i class="fas fa-user-graduate" style="font-size: xx-large;"></i>
+                    <span class="menu-spacer">&nbsp;&nbsp;</span>
+                    <h1 class="ay-header">WeWin <sup style="font-size: 12px;">1.0</sup> </h1>
+                    <span class="menu-spacer">&nbsp;&nbsp;</span>
+                    <div>
+                    <a mat-button [routerLink]="['/home']"> Home </a>
+                    <a mat-button [routerLink]="['/createquestion']"> Data Capture </a>
+                    <a mat-button [routerLink]="['/maintenance']"> Maintenance </a>
+                    </div>
+                    <button mat-icon-button (click)="signOut()">
+                        <mat-icon >logout</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+    </div>
 
-<!-- Footer -->
-<app-ay-foot *ngIf="showFoot"></app-ay-foot>
-<!-- End of Footer -->
+    <div gdArea="side">
+        <mat-card *ngIf="navElements?.sideNavStatus" style="width:100%; height:100%;">
+            <mat-card-header>
+                <mat-card-title class="ay-side">{{currentUser?.username}}</mat-card-title>
+                <mat-card-subtitle class="ay-side">{{currentUser?.role}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                    <div *ngIf="navElements?.sideNavElement=='DE'" class="list-group list-group-flush ay-side">
+                        <a [routerLink]="['/createquestion']" class="list-group-item list-group-item-action list-group-item-light disabled"><b>Data Capture</b></a>
+                        <a [routerLink]="['/createquestion']" class="list-group-item list-group-item-action list-group-item-light">Add Question</a>
+                        <a [routerLink]="['/searchquestion']" class="list-group-item list-group-item-action list-group-item-light">Search Question</a>
+                        <a [routerLink]="['/previewquestion/Q000001']" class="list-group-item list-group-item-action list-group-item-light">Preview Question</a>
+                    </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 
+    <div gdArea="content">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div gdArea="footer">
+        <div *ngIf="navElements?.footNavStatus" class="ay-footer">
+            <i class="fas fa-user-graduate"></i>
+            We Win <sup>1.0</sup>
+            &copy;
+            {{cpyRgt | date: 'yyyy'}}, for a better education.
+        </div>
+    </div>
 </div>
-
-

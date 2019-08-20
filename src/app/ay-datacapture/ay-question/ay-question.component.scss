@@ -1,12 +1,95 @@
-  mat-grid-tile {
-    background: rgb(255, 255, 255);
-  }
-
   .example-form {
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   
   .example-full-width {
     width: 100%;
   }
+
+  .ay-question-preview {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  // .img-filter {
+  //   filter: opacity(30%);
+  // }
+
+  /* CSS to change 'Primary' color */
+
+::ng-deep .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: green;
+}
+
+::ng-deep .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgb(167, 253, 167);
+}
+
+
+  .mat-column-clmAnswerResult {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-clmAnswerText {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  
+  .mat-column-clmAnswerImagePreview {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 25% !important;
+    width: 25% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-clmAction {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+
+  
+
+  // .img-close {
+  //   padding-left: 10px;
+  //   background:url(../../../assets/img/window-close-regular.svg) no-repeat center;
+  //   width: 20px;
+  //   height: 20px;
+  // }
 

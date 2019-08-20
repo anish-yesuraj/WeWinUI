@@ -30,15 +30,15 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
     
 
     ngOnInit() {
-        console.log('From parent :',this.selAnswerChoice);
+        //console.log('From parent :',this.selAnswerChoice);
         this.answerChoiceForm = this.fb.group({
             id : [this.selAnswerChoice.id,[]],
             result : [this.selAnswerChoice.result,[]],
             text : [this.selAnswerChoice.text,[]],
             tip : [this.selAnswerChoice.tip,[]],
             imageSrc : [this.selAnswerChoice.imageSrc],
-            imageFile : [this.selAnswerChoice.imageFile,[]],
-            imageName : [this.selAnswerChoice.imageName,[]],
+            //imageFile : [this.selAnswerChoice.imageFile,[]],
+            //imageName : [this.selAnswerChoice.imageName,[]],
             imageTip : [this.selAnswerChoice.imageTip,[]]
         });
 
@@ -80,18 +80,18 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
         }
         // load image if there is a pasted image
         if (blob !== null) {
-            var date = new Date();
-            var pasteFileName = `ay_${date.getTime().toString()}.jpg`;
-            const fileFromBlob: File = new File([blob], pasteFileName);
+            //var date = new Date();
+            //var pasteFileName = `ay_${date.getTime().toString()}.jpg`;
+            //const fileFromBlob: File = new File([blob], pasteFileName);
             const reader = new FileReader();
             reader.onload = (_evt: any) => {
                 //console.log('target.result :: ', _evt.target.result); // data url!
                 //console.log('fileFromBlob :: ', fileFromBlob); // data url!
                 this._choiceImagePreview.nativeElement.src = _evt.target.result;
                 this.answerChoiceForm.patchValue({
-                    imageSrc: _evt.target.result,
-                    imageFile: fileFromBlob,
-                    imageName: fileFromBlob.name
+                    imageSrc: _evt.target.result//,
+                    //imageFile: fileFromBlob,
+                    //imageName: fileFromBlob.name
                 });
                 //this.selAnswerChoice.imageFile = fileFromBlob;
                 //this.selAnswerChoice.imageName = fileFromBlob.name;
@@ -115,9 +115,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
         reader.onload = (_evt: any) => {
             this._choiceImagePreview.nativeElement.src = _evt.target.result;
             this.answerChoiceForm.patchValue({
-                imageSrc: _evt.target.result,
-                imageFile: this.fileToUpload,
-                imageName: this.fileToUpload.name
+                imageSrc: _evt.target.result//,
+                //imageFile: this.fileToUpload,
+                //imageName: this.fileToUpload.name
             });
             //this.selAnswerChoice.imageFile = this.fileToUpload;
             //this.selAnswerChoice.imageName = this.fileToUpload.name;
@@ -128,8 +128,18 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
         reader.readAsDataURL(this.fileToUpload);
     }
 
+    clearChoiceImage()
+    {
+      this._choiceImagePreview.nativeElement.src = '../../../assets/img/dummy-bg-filtered.png';
+      this.answerChoiceForm.patchValue({ 
+        imageSrc  : ''//,
+        //imageFile : '',
+        //imageName : ''
+      });
+    }
 
-    createImageFromBlob(image: Blob) {
+
+   /* createImageFromBlob(image: Blob) { //TODO Check if this function is used ?
         let reader = new FileReader();
         reader.addEventListener("load", () => {
             this._choiceImagePreview.nativeElement.src = reader.result;
@@ -138,7 +148,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
         if (image) {
            reader.readAsDataURL(image);
         }
-       }
+    } */
+
     /** END of Image Capturing Functions **/
   
 

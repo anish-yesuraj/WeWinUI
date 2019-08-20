@@ -1,0 +1,105 @@
+<div class="container-ay">
+    <div class="toprow align-items-center justify-content-center">
+        <div class="col d-block d-sm-none"></div>
+        <div class="w-100 d-block d-sm-none"></div>
+        <div class="col col-md-3">
+            <div class="container-title">
+                <div class="info">
+                    <h1>WeWin</h1><span>Happy Learning</span>
+                </div>
+                <div class="thumbnail"><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/2/25/Font_Awesome_5_solid_user-graduate.svg" />
+                </div>
+            </div>
+        </div>
+        <div class="w-100 d-block d-sm-none"></div>
+        <div class="col col-md-7">
+            <div class="form">
+                <form [formGroup]="registerForm" class="register-form">
+                    <alert></alert>
+                    <div class="row" style="position: relative;">
+                        <div class="col error-alert">
+                            <input required type="text" formControlName="firstname" placeholder="First Name" data-toggle="tooltip" title="Hooray!"/>
+                        </div>
+                        <div class="col">
+                            <input required type="text" formControlName="lastname" placeholder="Last Name" />
+                        </div>
+                    </div>
+                    <div class="row" style="position: relative;">
+                        <div class="col">
+                            <input required type="text" formControlName="username" placeholder="Login Username [a/A-9]" />
+                        </div>
+                    </div>
+
+                    <!-- <div class="row" style="position: relative;">
+                        <div class="col">
+                            <label *ngFor="let key of roleKeys">
+                                <input type="checkbox" formControlName="role" [value]="roleEnum[key]" />
+                                {{key}}
+                            </label>
+                        </div>
+                    </div> -->
+
+                    <div class="row" style="position: relative;">
+                        <div class="col">
+                            <input required type="password" formControlName="password" placeholder="Password [a-A-9]" />
+                        </div>
+                        <div class="col">
+                            <input required type="password" formControlName="confirmPassword" placeholder="Confirm Password" />
+                        </div>
+                    </div>
+
+                    <div class="row" style="position: relative;">
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label style="padding-bottom:0px;">Choose your Role</mat-label>
+                                <mat-select required formControlName="role" multiple panelClass="mat-sel-multi">
+                                    <mat-option *ngFor="let key of roleKeys" [value]="roleEnum[key]">{{key}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" style="position: relative;">
+                        <div class="col">
+                            <input required type="tel" formControlName="mobile" placeholder="Mobile [91-9876543210]" maxlength="13">
+                        </div>
+                        <div class="col">
+                            <input required type="text" formControlName="email" placeholder="Email address" />
+                        </div>
+                    </div>
+                    <button (click)="onSubmit()">Register</button>
+                    <p class="message">Already registered? <a [routerLink]="['/login']">Sign In</a></p>
+                </form>
+            </div>
+        </div>
+        <div class="w-100 d-block d-sm-none"></div>
+        <div class="col d-block d-sm-none"></div>
+    </div>
+</div>
+
+<!-- 
+                        <mat-error *ngFor="let validation of rem.firstname">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('firstname', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.lastname">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('lastname', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.username">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('username', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.role">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('role', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.password">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('password', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.confirmPassword">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('confirmPassword', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.mobile">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('mobile', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error>
+                        <mat-error *ngFor="let validation of rem.email">
+                            <mat-error class="error-message" *ngIf="showErrorMsgIf('email', validation.type)">{{validation.message}}</mat-error>
+                        </mat-error> -->

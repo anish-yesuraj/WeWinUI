@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { 
     MatFormFieldModule, 
     MatTooltipModule, 
@@ -16,7 +17,9 @@ import {
     MatDividerModule,
     MatGridListModule,
     MatTableModule,
-    MatDialogModule     
+    MatDialogModule,
+    MatMenuModule,
+    MatToolbarModule  
 } from '@angular/material';
 
 
@@ -39,7 +42,10 @@ import {
         MatDividerModule,
         MatGridListModule,
         MatTableModule,
-        MatDialogModule 
+        MatDialogModule,
+        MatMenuModule,
+        MatToolbarModule,
+        FlexLayoutModule  
     ],
     exports : [
         FormsModule, 
@@ -58,7 +64,13 @@ import {
         MatDividerModule,
         MatGridListModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        MatMenuModule,
+        MatToolbarModule,
+        FlexLayoutModule 
+    ],
+    declarations : [
+        
     ]
 })
 

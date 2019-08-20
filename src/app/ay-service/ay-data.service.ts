@@ -1,35 +1,62 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, retry, catchError } from 'rxjs/operators'
-import { IDropDownMaster } from '../ay-model/question-form.interface';
-import { AYMessageService } from './ay-message.service';
+import { IDropDownMaster, IQuestion } from '../ay-model/question-form.interface';
 
 
 @Injectable()
 export class AYDataService {
 
-    WeWinAPIUrl : string = "http://localhost:8080/WeWinAPI";
+    private WeWinAPIUrl : string = "http://localhost:8080/WeWinAPI";
 
-    WeWinAPIUrl_DDM : string = `${this.WeWinAPIUrl}/GetDropDownMaster`;
+    private WeWinAPIUrl_DDM : string = `${this.WeWinAPIUrl}/GetDropDownMaster`;
+    private WeWinAPIUrl_NEWQUES : string = `${this.WeWinAPIUrl}/CreateNewQuestion`;
+    private WeWinAPIUrl_GETQUESBYID : string = `${this.WeWinAPIUrl}/GetQuestion`;
+    private WeWinAPIUrl_UPDQUESBYID : string = `${this.WeWinAPIUrl}/UpdateQuestion`;
 
-    constructor (private _httpService:HttpClient, private messageService: AYMessageService){}
+    constructor (private _httpService:HttpClient){}
 
     /**  LOAD DROP DOWN VALUES - START **/
     getDropDownMasterValues(ddmType : string) : Observable<IDropDownMaster[]>
     {
-        return this._httpService.get<IDropDownMaster[]>(`${this.WeWinAPIUrl_DDM}/${ddmType}`)
-            .pipe( 
-                catchError(this.handleErrorAndDontReport)
-            );
+        return this._httpService.get<IDropDownMaster[]>
+                    (`${this.WeWinAPIUrl_DDM}/${ddmType}`)
+                    .pipe(catchError(this.handleErrorAndDontReport));
     }
     /**  LOAD DROP DOWN VALUES - END **/
 
 
+    /**  CREATE NEW QUESTION - START **/
+    createNewQuestion(newQuestion : IQuestion) : Observable<IQuestion>
+    {
+        let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._httpService.post<IQuestion>
+                    (`${this.WeWinAPIUrl_NEWQUES}`, newQuestion, {headers: httpHeaders})
+                    .pipe(catchError(this.handleErrorAndDontReport));
+    }
+    /**  CREATE NEW QUESTION - END **/
 
 
+    /**  GET A QUESTION BY ID - START **/
+    getQuestionByID(questionID : string) : Observable<IQuestion>
+    {
+        return this._httpService.get<IQuestion>
+                                (`${this.WeWinAPIUrl_GETQUESBYID}/${questionID}`)
+                                .pipe(catchError(this.handleErrorAndDontReport));
+    }
+    /**  GET A QUESTION BY ID - END **/
 
 
+    /**  UPDATE A QUESTION BY ID - START **/
+    updateQuestionByID(updQuestion : IQuestion)
+    {
+        let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._httpService.put<IQuestion>
+                    (`${this.WeWinAPIUrl_UPDQUESBYID}`, updQuestion, {headers: httpHeaders})
+                    .pipe(catchError(this.handleErrorAndDontReport));
+    }
+    /**  UPDATE A QUESTION BY ID - END **/
 
 
 
@@ -49,7 +76,7 @@ export class AYDataService {
     }
 
     private log(message: string) {
-        this.messageService.add(`AYDataService: ${message}`);
+        //this.messageService.add(`AYDataService: ${message}`);
     }
     
     // Error handling and Do not report to user
@@ -57,10 +84,10 @@ export class AYDataService {
         let errorMessage = '';
         if (error.error instanceof ErrorEvent) {
             // Get client-side error
-            errorMessage = error.error.message;
+            errorMessage = `Client Side Error: \nMessage: ${error.error.message}`;
         } else {
             // Get server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            errorMessage = `Server Side Error Code: ${error.status}\nMessage: ${error.message}`;
         }
         console.log(errorMessage);
         return throwError(errorMessage);

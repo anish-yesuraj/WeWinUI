@@ -1,0 +1,19 @@
+$ay-bg-color : rgb(89, 253, 217);
+
+.ay-header {
+   background-color: $ay-bg-color;
+   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   border-radius: 3px;
+}
+
+.ay-footer {
+   background-color:$ay-bg-color;
+   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   text-align: center;
+   font-size: smaller;
+   border-radius: 3px;
+}
+
+.ay-side {
+   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}

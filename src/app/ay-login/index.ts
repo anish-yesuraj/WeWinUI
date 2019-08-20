@@ -1,0 +1,1 @@
+export * from './ay-login.component';

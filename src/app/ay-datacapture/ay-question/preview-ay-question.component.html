@@ -1,0 +1,73 @@
+<mat-card>
+        <mat-card-header>
+            <mat-card-title> Question # {{previewQuestionData?.id}} </mat-card-title>
+        </mat-card-header>
+        
+        <mat-divider></mat-divider>
+        
+        <mat-card-content> 
+            <div
+                gdAreas="QText | QImage | AChoice | QTip | ATip | QAttr"
+                gdRows="auto auto auto auto"
+                gdGap="5px" class="ay-question-preview">
+                <div gdArea="QText">
+                    {{previewQuestionData?.text}}
+                </div>
+                <div gdArea="QImage">
+                    <img *ngIf="previewQuestionData?.imageSrc" [src]="decodeAndLoadImage(previewQuestionData?.imageSrc)" style="border:0px; max-width: 680px; max-height: 150px;">
+                </div>
+                <div gdArea="AChoice">
+                    <table class="example-full-width">
+                        <tr *ngFor="let choice of previewQuestionData?.answerChoices; let i = index">
+                            <!-- <td>
+                                {{(i+1)}}
+                            </td> -->
+                            <td>
+                                <mat-icon *ngIf="choice?.result">check_circle</mat-icon>
+                                <mat-icon *ngIf="!choice?.result">highlight_off</mat-icon>
+                            </td>
+                            <td> 
+                                {{choice?.text}} / <i> {{choice?.tip}} </i> 
+                            </td>
+                            <td>
+                                <img *ngIf="choice?.imageSrc" [src]="decodeAndLoadImage(choice?.imageSrc)" style="border:0px; max-width: 200px; height: 80px;">
+                                <i> {{choice?.imageTip}} </i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div gdArea="QTip">
+                    <hr>
+                    Question Tip : 
+                    <i>
+                        {{previewQuestionData?.tip}}
+                    </i>
+                </div>
+                <div gdArea="ATip">
+                    Answer Explanation :
+                    <b><i>
+                        {{previewQuestionData?.answerExplanation}}
+                    </i></b>
+                </div>
+                <div gdArea="QAttr">
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">Grade : {{previewQuestionData?.grade}}</div>
+                        <div class="col-4">Subject : {{previewQuestionData?.subject}}</div>
+                        <div class="col-4">Topic : {{previewQuestionData?.topic}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4">Level : {{previewQuestionData?.level}}</div>
+                        <div class="col-4">Exam Tags : {{previewQuestionData?.examTag}}</div>
+                        <div class="col-4">Source : {{previewQuestionData?.sourceId}}</div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div class="d-flex justify-content-between">
+                <button type="button"  class="btn btn-warning" (click) = "editQuestion(previewQuestionData?.id)">Edit</button>
+                <button type="button" class="btn btn-info" (click) = "createNewQuestion()">Create</button>
+            </div>
+        </mat-card-actions>
+</mat-card>
